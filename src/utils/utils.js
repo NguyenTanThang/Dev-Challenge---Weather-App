@@ -116,5 +116,5 @@ export const convertArrayToObject = (arr) => {
 }
 
 export const convertCtoF = (c) => {
-    return Math.round(c) * 9 / 5 + 32;
+    return Math.round(Math.round(c) * 9 / 5 + 32);
 }
