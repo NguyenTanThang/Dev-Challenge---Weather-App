@@ -10,7 +10,8 @@ let locationURL = `https://www.metaweather.com/api/location/`;
 export default class Home extends Component {
 
     state = {
-        weatherData: ""
+        weatherData: "",
+        currentDegree: "C"
     }
 
     async componentDidMount() {
@@ -22,8 +23,15 @@ export default class Home extends Component {
         })
     }
 
+    changeCurrentDegree = (currentDegree) => {
+        this.setState({
+            currentDegree
+        }) 
+    }
+
     render() {
-        const {weatherData} = this.state;
+        const {changeCurrentDegree} = this;
+        let {weatherData, currentDegree} = this.state;
 
         if (!weatherData) {
             return (<></>)
@@ -36,8 +44,8 @@ export default class Home extends Component {
         return (
             <div className="home">
                 <div className="row">
-                    <HomeSide weatherItem={weatherItem} location={title}/>
-                    <HomeMain weatherItem={weatherItem} weatherList={weatherList}/>
+                    <HomeSide weatherItem={weatherItem} location={title} currentDegree={currentDegree}/>
+                    <HomeMain weatherItem={weatherItem} weatherList={weatherList} changeCurrentDegree={changeCurrentDegree} currentDegree={currentDegree}/>
                 </div>
             </div>
         )
