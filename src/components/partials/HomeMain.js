@@ -5,7 +5,7 @@ import WeatherItem from "../weather/WeatherItem";
 export default class HomeMain extends Component {
 
     renderWeatherItems = () => {
-        const {weatherList} = this.props;
+        const {weatherList, currentDegree} = this.props;
 
         return weatherList.map((weatherItem, index) => {
             if (index === 0) {
@@ -13,13 +13,32 @@ export default class HomeMain extends Component {
             }
             return (
                 <div className='home-weather-item' key={weatherItem.id}>
-                    <WeatherItem weatherItem={weatherItem}/>
+                    <WeatherItem weatherItem={weatherItem} currentDegree={currentDegree}/>
                 </div>
             )
         })
     }
 
+    renderDegreeButtons = () => {
+        const {currentDegree, changeCurrentDegree} = this.props;
+
+        const fButtonClass = currentDegree === "F" ? "active" : "";
+        const cButtonClass = currentDegree === "C" ? "active" : "";
+
+        return (
+            <>
+                <li>
+                    <button className={`btn btn--grey btn--rounded ${cButtonClass}`} style={{fontWeight: "bold"}}onClick={() => changeCurrentDegree("C")}>°C</button>
+                </li>
+                <li>
+                    <button className={`btn btn--grey btn--rounded ${fButtonClass}`} style={{fontWeight: "bold"}}onClick={() => changeCurrentDegree("F")}>°F</button>
+                </li>
+            </>
+        )
+    }
+
     render() {
+        const {renderDegreeButtons} = this;
         const {weatherItem} = this.props;
         const {air_pressure, wind_direction, wind_speed, humidity, visibility, wind_direction_compass} = weatherItem;
 
@@ -28,12 +47,7 @@ export default class HomeMain extends Component {
                 
                 <div className="home-main__header">
                     <ul className="home-main-header__temp-list row">
-                        <li>
-                            <button className="btn btn--grey btn--rounded active" style={{fontWeight: "bold"}}>℃</button>
-                        </li>
-                        <li>
-                            <button className="btn btn--grey btn--rounded" style={{fontWeight: "bold"}}>℉</button>
-                        </li>
+                        {renderDegreeButtons()}
                     </ul>
                 </div>
 

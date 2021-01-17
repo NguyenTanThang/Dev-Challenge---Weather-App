@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import SideNavbar from "./SideNavbar";
-import {withRouter} from "react-router-dom";
 
-import {getWeatherImageItem, convertDateToValid, getLocation} from "../../utils/utils";
+import {getWeatherImageItem, convertDateToValid, convertCtoF} from "../../utils/utils";
 
 class HomeSide extends Component {
 
@@ -47,9 +46,15 @@ class HomeSide extends Component {
         window.location.replace(`/locations/longitude/${longitude}/latitude/${latitude}`);
     }
 
+    renderDegreeSymbol = () => {
+        const {currentDegree} = this.props;
+
+        return currentDegree === "F" ? (<sub>°F</sub>) : (<sub>°C</sub>)
+    }
+
     render() {
-        const {onGeoClick} = this;
-        const {weatherItem, location} = this.props;
+        const {onGeoClick, renderDegreeSymbol} = this;
+        const {weatherItem, location, currentDegree} = this.props;
         const {weather_state_name, the_temp, applicable_date} = weatherItem; 
 
         return (
@@ -76,7 +81,7 @@ class HomeSide extends Component {
 
                     <div className="home-side-bar-main__desc">
                         <div className="home-side-bar-main-desc__temp">
-                            <h2>{Math.round(the_temp)}<sub>℃</sub></h2>
+                            <h2>{currentDegree === "F" ? `${convertCtoF(the_temp)}` : `${Math.round(the_temp)}`}{renderDegreeSymbol()}</h2>
                         </div>
                         <div className="home-side-bar-main-desc__state">
                             <h4>{weather_state_name}</h4>

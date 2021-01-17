@@ -114,3 +114,7 @@ export const convertArrayToObject = (arr) => {
     })
     return obj;
 }
+
+export const convertCtoF = (c) => {
+    return Math.round(c) * 9 / 5 + 32;
+}

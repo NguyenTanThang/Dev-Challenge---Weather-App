@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import HomeSide from "../components/partials/HomeSide";
 import HomeMain from "../components/partials/HomeMain";
-import axios from "axios";
 
 let herokuCors = `https://cors-anywhere.herokuapp.com/`;
 let locationURL = `https://www.metaweather.com/api/location/1252431/`;
@@ -10,7 +9,8 @@ let locationURL = `https://www.metaweather.com/api/location/1252431/`;
 export default class Home extends Component {
 
     state = {
-        weatherData: ""
+        weatherData: "",
+        currentDegree: "C"
     }
 
     /**/
@@ -27,22 +27,29 @@ export default class Home extends Component {
         }
     }
     
-/*
-   async componentDidMount() {
-        try {
-            const res = await axios.get(`https://jsonplaceholder.typicode.com/todos/`);
-            const todos = res.data;
-            this.setState({
-                weatherData: todos
-            })
-        } catch (error) {
-            console.log(error);
+    /*
+    async componentDidMount() {
+            try {
+                const res = await axios.get(`https://jsonplaceholder.typicode.com/todos/`);
+                const todos = res.data;
+                this.setState({
+                    weatherData: todos
+                })
+            } catch (error) {
+                console.log(error);
+            }
         }
+    */
+
+    changeCurrentDegree = (currentDegree) => {
+        this.setState({
+            currentDegree
+        }) 
     }
-*/
 
     render() {
-        let {weatherData} = this.state;
+        const {changeCurrentDegree} = this;
+        let {weatherData, currentDegree} = this.state;
 
         if (!weatherData) {
             return (<></>)
@@ -63,8 +70,8 @@ export default class Home extends Component {
             <div className="home">
                 <div className="row">
                     {/**/}
-                    <HomeSide weatherItem={weatherItem} location={title}/>
-                    <HomeMain weatherItem={weatherItem} weatherList={weatherList}/>
+                    <HomeSide weatherItem={weatherItem} location={title} currentDegree={currentDegree}/>
+                    <HomeMain weatherItem={weatherItem} weatherList={weatherList} changeCurrentDegree={changeCurrentDegree} currentDegree={currentDegree}/>
                     {/*
                     {weatherData.map(weatherItem => {
                         return <li key={weatherItem.id}>{weatherItem.title}</li>
