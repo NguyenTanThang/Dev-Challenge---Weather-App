@@ -85,10 +85,14 @@ export const convertDateToValid = (date) => {
     return `${day}, ${validDate} ${month}`;
 }
 
-export function getLocation() {
+export const getLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
           console.log(position);
+          console.log({
+            longitude: position.coords.longitude,
+            latitude: position.coords.latitude
+          });
           return {
             longitude: position.coords.longitude,
             latitude: position.coords.latitude

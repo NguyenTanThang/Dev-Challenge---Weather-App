@@ -7,6 +7,7 @@ let geoURL = `https://www.metaweather.com/api/location/search/?lattlong=`;
 export default class GeoPage extends Component {
 
     async componentDidMount() {
+        console.log(this.props.match.params);
         const {longitude, latitude} = this.props.match.params;
 
         const res = await axios.get(`${herokuCors}${geoURL}${latitude},${longitude}`);
@@ -19,6 +20,7 @@ export default class GeoPage extends Component {
     render() {
         return (
             <>
+                Geopage
             </>
         )
     }

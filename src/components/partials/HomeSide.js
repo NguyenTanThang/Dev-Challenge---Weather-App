@@ -6,6 +6,27 @@ import {getWeatherImageItem, convertDateToValid, getLocation} from "../../utils/
 
 class HomeSide extends Component {
 
+    state = {
+        geoLocation: ""
+    }
+
+    componentDidMount() {
+        const thisRightHere = this;
+
+        navigator.geolocation.getCurrentPosition((position) => {
+            console.log(position);
+            const geoLocation = {
+                longitude: position.coords.longitude,
+                latitude: position.coords.latitude
+            }
+            thisRightHere.setState({
+                geoLocation
+            }, () => {
+                console.log(thisRightHere.state.geoLocation);
+            })
+        });
+    }
+
     /*
     onGeoClick = async (e) => {
         const geoLocation = getLocation();
@@ -20,10 +41,10 @@ class HomeSide extends Component {
     */
 
    onGeoClick = (e) => {
-        const geoLocation = getLocation();
+        const {geoLocation} = this.state;
         const {longitude, latitude} = geoLocation;
 
-        window.location.href(`/locations/${longitude}/${latitude}`);
+        window.location.replace(`/locations/longitude/${longitude}/latitude/${latitude}`);
     }
 
     render() {

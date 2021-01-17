@@ -11,9 +11,9 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
+          <Route path="/locations/longitude/:longitude/latitude/:latitude" component={GeoPage} exact/>
           <Route path="/" component={HomePage} exact/>
-          <Route path="/locations/:woeid" component={Location}/>
-          <Route path="/locations/:longitude/:latitude" component={GeoPage}/>
+          <Route path="/locations/:woeid" component={Location} exact/>
         </Switch>
       </Router>
     </div>
