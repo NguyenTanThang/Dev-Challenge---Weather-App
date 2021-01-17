@@ -23,7 +23,7 @@ class HomeSide extends Component {
         const geoLocation = getLocation();
         const {longitude, latitude} = geoLocation;
 
-        this.props.history.push(`/locations/${longitude}/${latitude}`);
+        window.location.href(`/locations/${longitude}/${latitude}`);
     }
 
     render() {
@@ -81,4 +81,4 @@ class HomeSide extends Component {
     }
 }
 
-export default withRouter(HomeSide);
+export default HomeSide;
